@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Funcionario;
+use App\unidade;
+use App\setor;
+use App\cargo;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use DB;
@@ -74,7 +77,14 @@ class FuncionarioController extends Controller
 
     public function funcionario(Request $request)
     {
-      return view('/funcionario');
+      $empresa_id = 1;
+      $unidades = unidade::where('id',$empresa_id)->orderBy('nome')->pluck('nome','id');
+      $setores = setor::where('empresa_id',$empresa_id)->orderBy('nome')->pluck('nome','id');
+      $cargos  = cargo::where('empresa_id',$empresa_id)->orderBy('nome')->pluck('nome','id');
+      return view('/funcionario')
+      ->with('unidades',$unidades)
+      ->with('setores',$setores)
+      ->with('cargos',$cargos);
       $nome = $request->nome;
     }
 
@@ -87,9 +97,6 @@ class FuncionarioController extends Controller
         'cpf'  => 'required',
         'rg'   => 'required',
         'ctps' => 'required',
-        'cargo' => 'required|max:20',
-        'setor' => 'required|max:20',
-        'unidade' => 'required|max:20',
         'admissao' => 'required|date',
       ]);
 
@@ -100,9 +107,9 @@ class FuncionarioController extends Controller
       $funcionario->cpf = $request->cpf;
       $funcionario->rg = $request->rg;
       $funcionario->ctps = $request->ctps;
-      $funcionario->cargo = $request->cargo;
-      $funcionario->setor = $request->setor;
-      $funcionario->unidade = $request->unidade;
+      $funcionario->unidade_id = $request->unidade_id;
+      $funcionario->setor_id = $request->setor_id;
+      $funcionario->cargo_id = $request->cargo_id;
       $funcionario->admissao = $request->admissao;
       $funcionario->save();
 
