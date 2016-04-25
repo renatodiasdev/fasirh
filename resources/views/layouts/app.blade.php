@@ -48,7 +48,8 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/home') }}">Home</a></li>
-                    <li><a href="{{ url('/tasks') }}">Tarefas</a></li>
+                    <li><a href="{{ url('/unidades') }}">Unidades</a></li>
+                    <li><a href="{{ url('/setores') }}">Setores</a></li>
                     <li class="dropdown">
                         <a href="{{ url('/funcionarios/buscar') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             Funcionário <span class="caret"></span>

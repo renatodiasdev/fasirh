@@ -25,7 +25,7 @@ Route::group(['middleware' => ['web']], function () {
     /**
      * Show Task Dashboard
      */
-     Route::get('/tasks', 'HomeController@tasks');
+    Route::get('/tasks', 'HomeController@tasks');
 
     /**
      * Add New Task
@@ -36,6 +36,26 @@ Route::group(['middleware' => ['web']], function () {
      * Delete Task
      */
     Route::delete('/task/{id}', 'HomeController@taskdelete');
+
+    /**
+    * Exibe as unidades criadas
+    */
+    Route::get('/unidades', 'HomeController@unidades');
+
+    /**
+    * Exibe os setores criados
+    */
+    Route::get('/setores', 'HomeController@setores');
+    /**
+    * Cria uma unidade
+    */
+    Route::post('/unidade', 'HomeController@unidade');
+
+    /**
+    * Apaga uma unidade
+    */
+    Route::delete('/unidade/{id}', 'HomeController@unidadedelete');
+
 
       Route::group(['prefix' => 'funcionarios'], function() {
         /**

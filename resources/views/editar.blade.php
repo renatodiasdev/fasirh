@@ -38,13 +38,10 @@
                             <label class="col-md-4 control-label">Sexo</label>
 
                             <div class="col-md-3">
-                                <input type="text" class="form-control" name="sexo" value="{{ $funcionario->sexo }}">
-
-                                @if ($errors->has('sexo'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('sexo') }}</strong>
-                                    </span>
-                                @endif
+                                <select class="form-control" name="sexo">
+                                  <option value="Masculino">Masculino</option>
+                                  <option value="Feminino">Feminino</option>
+                                </select>
                             </div>
                         </div>
 
@@ -104,47 +101,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('cargo') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Cargo</label>
-
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" name="cargo" value="{{ $funcionario->cargo }}">
-
-                                @if ($errors->has('cargo'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('cargo') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('setor') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Setor</label>
-
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" name="setor" value="{{ $funcionario->setor }}">
-
-                                @if ($errors->has('setor'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('setor') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('unidade') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Unidade</label>
-
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" name="unidade" value="{{ $funcionario->unidade }}">
-
-                                @if ($errors->has('unidade'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('unidade') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                        @include('combosfuncionario')
 
                         <div class="form-group{{ $errors->has('admissao') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">Data de Admissão</label>

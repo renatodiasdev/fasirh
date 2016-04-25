@@ -33,7 +33,7 @@ class FuncionarioController extends Controller
       return View('/resultado', ['funcionarios' => $funcionarios]);
     }
     else {
-      return redirect('/buscar');
+      return redirect('/funcionarios/buscar');
     }
 
    }
@@ -41,7 +41,14 @@ class FuncionarioController extends Controller
    public function editar($id)
    {
      $funcionario = Funcionario::findOrFail($id);
-     return view('/editar', compact('funcionario'));
+     $empresa_id = 1;
+     $unidades = unidade::where('id',$empresa_id)->orderBy('nome')->pluck('nome','id');
+     $setores = setor::where('empresa_id',$empresa_id)->orderBy('nome')->pluck('nome','id');
+     $cargos  = cargo::where('empresa_id',$empresa_id)->orderBy('nome')->pluck('nome','id');
+     return view('/editar', compact('funcionario'))
+     ->with('unidades',$unidades)
+     ->with('setores',$setores)
+     ->with('cargos',$cargos);
    }
 
    public function PostEditar(Request $request)
@@ -53,9 +60,6 @@ class FuncionarioController extends Controller
        'cpf'  => 'required',
        'rg'   => 'required',
        'ctps' => 'required',
-       'cargo' => 'required|max:20',
-       'setor' => 'required|max:20',
-       'unidade' => 'required|max:20',
        'admissao' => 'required|date',
      ]);
      $func = Funcionario::find($request->id);
@@ -65,14 +69,14 @@ class FuncionarioController extends Controller
      $func->cpf = $request->cpf;
      $func->rg = $request->rg;
      $func->ctps = $request->ctps;
-     $func->cargo = $request->cargo;
-     $func->setor = $request->setor;
-     $func->unidade = $request->unidade;
+     $func->unidade_id = $request->unidade_id;
+     $func->setor_id = $request->setor_id;
+     $func->cargo_id = $request->cargo_id;
      $func->admissao = $request->admissao;
      $func->saida = $request->saida;
      $func->save();
 
-     return redirect('/buscar');
+     return redirect('/funcionarios/buscar');
    }
 
     public function funcionario(Request $request)
@@ -113,13 +117,13 @@ class FuncionarioController extends Controller
       $funcionario->admissao = $request->admissao;
       $funcionario->save();
 
-      return redirect('/buscar');
+      return redirect('/funcionarios/buscar');
     }
 
     public function delete($id)
     {
       Funcionario::findOrFail($id)->delete();
-      return redirect('/buscar');
+      return redirect('/funcionarios/buscar');
     }
 
 }

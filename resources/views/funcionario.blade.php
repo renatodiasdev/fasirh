@@ -100,24 +100,6 @@
 
                         @include('combosfuncionario')
 
-<!--
-                        <div class="form-group{{ $errors->has('unidade') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Unidade</label>
-
-
-                             <div class="col-md-3">
-                                <input type="text" class="form-control" name="unidade" value="{{ old('unidade') }}">
-
-                                @if ($errors->has('unidade'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('unidade') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-
-                        </div>
--->
-
                         <div class="form-group{{ $errors->has('admissao') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">Data de Admissão</label>
 
