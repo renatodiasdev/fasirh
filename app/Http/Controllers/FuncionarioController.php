@@ -9,6 +9,7 @@ use App\cargo;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class FuncionarioController extends Controller
 {
@@ -41,8 +42,8 @@ class FuncionarioController extends Controller
    public function editar($id)
    {
      $funcionario = Funcionario::findOrFail($id);
-     $empresa_id = 1;
-     $unidades = unidade::where('id',$empresa_id)->orderBy('nome')->pluck('nome','id');
+     $empresa_id = Auth::user()->empresa_id;
+     $unidades = unidade::where('empresa_id',$empresa_id)->orderBy('nome')->pluck('nome','id');
      $setores = setor::where('empresa_id',$empresa_id)->orderBy('nome')->pluck('nome','id');
      $cargos  = cargo::where('empresa_id',$empresa_id)->orderBy('nome')->pluck('nome','id');
      return view('/editar', compact('funcionario'))
@@ -81,7 +82,7 @@ class FuncionarioController extends Controller
 
     public function funcionario(Request $request)
     {
-      $empresa_id = 1;
+      $empresa_id = Auth::user()->empresa_id;
       $unidades = unidade::where('id',$empresa_id)->orderBy('nome')->pluck('nome','id');
       $setores = setor::where('empresa_id',$empresa_id)->orderBy('nome')->pluck('nome','id');
       $cargos  = cargo::where('empresa_id',$empresa_id)->orderBy('nome')->pluck('nome','id');
@@ -115,6 +116,7 @@ class FuncionarioController extends Controller
       $funcionario->setor_id = $request->setor_id;
       $funcionario->cargo_id = $request->cargo_id;
       $funcionario->admissao = $request->admissao;
+      $funcionario->empresa_id = Auth::user()->empresa_id;
       $funcionario->save();
 
       return redirect('/funcionarios/buscar');

@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Task;
 use App\unidade;
 use App\setor;
+use App\User;
 use App\Http\Requests;
 use App\Http\Controllers\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -61,7 +63,7 @@ class HomeController extends Controller
     public function unidades()
     {
       return view('unidades', [
-          'unidades' => unidade::orderBy('created_at', 'asc')->get()
+          'unidades' => unidade::where('empresa_id', Auth::user()->empresa_id)->get()
       ]);
     }
 
@@ -81,6 +83,7 @@ class HomeController extends Controller
       $unidade->bairro = $request->bairro;
       $unidade->cidade = $request->cidade;
       $unidade->uf = $request->uf;
+      $unidade->empresa_id = Auth::user()->empresa_id;
       $unidade->save();
 
       return redirect('/unidades');
@@ -108,6 +111,7 @@ class HomeController extends Controller
 
       $setor = new setor;
       $setor->nome = $request->nome;
+      $setor->empresa_id = Auth::user()->empresa_id;
       $setor->save();
 
       return redirect('/setores');

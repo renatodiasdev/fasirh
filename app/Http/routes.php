@@ -32,6 +32,12 @@ Route::group(['middleware' => ['web']], function () {
      */
     Route::post('/task', 'HomeController@task');
 
+    Route::get('/sessao', function(){
+      $id = Auth::user()->empresa_id;
+
+      return $id;
+    });
+
     /**
      * Delete Task
      */
@@ -50,12 +56,17 @@ Route::group(['middleware' => ['web']], function () {
     * Cria uma unidade
     */
     Route::post('/unidade', 'HomeController@unidade');
-
+    /* Cria um setor
+    */
+    Route::post('/setor', 'HomeController@setor');
     /**
     * Apaga uma unidade
     */
     Route::delete('/unidade/{id}', 'HomeController@unidadedelete');
-
+    /**
+    * Apaga um setor
+    */
+    Route::delete('/setor/{id}', 'HomeController@setordelete');
 
       Route::group(['prefix' => 'funcionarios'], function() {
         /**
