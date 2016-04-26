@@ -99,10 +99,9 @@ class HomeController extends Controller
 
     public function setores()
     {
-      $cargos  = cargo::where('empresa_id',Auth::user()->empresa_id)->orderBy('nome')->pluck('nome','id');
       return view('setores', [
           'setores' => setor::where('empresa_id', Auth::user()->empresa_id)->get()
-      ])->with('cargos',$cargos);
+      ]);
     }
 
     public function setor(Request $request)

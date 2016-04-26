@@ -64,6 +64,7 @@ class FuncionarioController extends Controller
        'admissao' => 'required|date',
      ]);
      $func = Funcionario::find($request->id);
+     $func->matricula = $request->matricula;
      $func->nome = $request->nome;
      $func->sexo = $request->sexo;
      $func->nascimento = $request->nascimento;
@@ -75,6 +76,7 @@ class FuncionarioController extends Controller
      $func->cargo_id = $request->cargo_id;
      $func->admissao = $request->admissao;
      $func->saida = $request->saida;
+     $func->empresa_id = Auth::user()->empresa_id;
      $func->save();
 
      return redirect('/funcionarios/buscar');
@@ -106,6 +108,7 @@ class FuncionarioController extends Controller
       ]);
 
       $funcionario = new Funcionario;
+      $funcionario->matricula = $request->matricula;
       $funcionario->nome = $request->nome;
       $funcionario->sexo = $request->sexo;
       $funcionario->nascimento = $request->nascimento;
