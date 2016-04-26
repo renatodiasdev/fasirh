@@ -53,12 +53,19 @@ Route::group(['middleware' => ['web']], function () {
     */
     Route::get('/setores', 'HomeController@setores');
     /**
+    * Exibe os cargos criados
+    */
+    Route::get('/cargos', 'HomeController@cargos');
+    /**
     * Cria uma unidade
     */
     Route::post('/unidade', 'HomeController@unidade');
     /* Cria um setor
     */
     Route::post('/setor', 'HomeController@setor');
+    /* Cria um cargo
+    */
+    Route::post('/cargo', 'HomeController@cargo');
     /**
     * Apaga uma unidade
     */
@@ -67,6 +74,10 @@ Route::group(['middleware' => ['web']], function () {
     * Apaga um setor
     */
     Route::delete('/setor/{id}', 'HomeController@setordelete');
+    /**
+    * Apaga um cargo
+    */
+    Route::delete('/cargo/{id}', 'HomeController@cargodelete');
 
       Route::group(['prefix' => 'funcionarios'], function() {
         /**

@@ -50,6 +50,7 @@
                     <li><a href="{{ url('/home') }}">Home</a></li>
                     <li><a href="{{ url('/unidades') }}">Unidades</a></li>
                     <li><a href="{{ url('/setores') }}">Setores</a></li>
+                    <li><a href="{{ url('/cargos') }}">Cargos</a></li>
                     <li class="dropdown">
                         <a href="{{ url('/funcionarios/buscar') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             Funcionário <span class="caret"></span>

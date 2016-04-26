@@ -83,7 +83,7 @@ class FuncionarioController extends Controller
     public function funcionario(Request $request)
     {
       $empresa_id = Auth::user()->empresa_id;
-      $unidades = unidade::where('id',$empresa_id)->orderBy('nome')->pluck('nome','id');
+      $unidades = unidade::where('empresa_id',$empresa_id)->orderBy('nome')->pluck('nome','id');
       $setores = setor::where('empresa_id',$empresa_id)->orderBy('nome')->pluck('nome','id');
       $cargos  = cargo::where('empresa_id',$empresa_id)->orderBy('nome')->pluck('nome','id');
       return view('/funcionario')

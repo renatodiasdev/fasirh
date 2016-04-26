@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Task;
 use App\unidade;
 use App\setor;
+use App\cargo;
 use App\User;
 use App\Http\Requests;
 use App\Http\Controllers\Validator;
@@ -98,9 +99,10 @@ class HomeController extends Controller
 
     public function setores()
     {
+      $cargos  = cargo::where('empresa_id',Auth::user()->empresa_id)->orderBy('nome')->pluck('nome','id');
       return view('setores', [
-          'setores' => setor::orderBy('created_at', 'asc')->get()
-      ]);
+          'setores' => setor::where('empresa_id', Auth::user()->empresa_id)->get()
+      ])->with('cargos',$cargos);
     }
 
     public function setor(Request $request)
@@ -122,5 +124,35 @@ class HomeController extends Controller
       setor::findOrFail($id)->delete();
 
       return redirect('/setores');
+    }
+
+    public function cargos()
+    {
+      $setores  = setor::where('empresa_id',Auth::user()->empresa_id)->orderBy('nome')->pluck('nome','id');
+      return view('cargos', [
+          'cargos' => cargo::where('empresa_id', Auth::user()->empresa_id)->get()
+      ])->with('setores',$setores);
+    }
+
+    public function cargo(Request $request)
+    {
+      $this->validate($request, [
+        'nome' => 'required|max:20',
+      ]);
+
+      $cargo = new cargo;
+      $cargo->nome = $request->nome;
+      $cargo->setor_id = $request->setor_id;
+      $cargo->empresa_id = Auth::user()->empresa_id;
+      $cargo->save();
+
+      return redirect('/cargos');
+    }
+
+    public function cargodelete($id)
+    {
+      cargo::findOrFail($id)->delete();
+
+      return redirect('/cargos');
     }
 }
