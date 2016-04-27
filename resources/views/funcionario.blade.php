@@ -16,6 +16,20 @@
                     <form action="/funcionarios/salvar" method="POST" class="form-horizontal">
                         {{ csrf_field() }}
 
+                        <div class="form-group{{ $errors->has('matricula') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">Matrícula</label>
+
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" name="matricula" value="{{ old('matricula') }}">
+
+                                @if ($errors->has('matricula'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('matricula') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <!-- Task Name -->
                         <div class="form-group{{ $errors->has('nome') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">Nome</label>

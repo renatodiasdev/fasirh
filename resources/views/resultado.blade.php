@@ -14,13 +14,14 @@
                         <table class="table table-striped funcionario-table">
                             <thead>
                                 <th>Nome</th>
+                                <th>Matrícula</th>
                                 <th>&nbsp;</th>
                             </thead>
                             <tbody>
                                 @foreach ($funcionarios as $funcionario)
                                     <tr>
                                         <td class="table-text"><div>{{ $funcionario->nome }}</div></td>
-
+                                        <td class="table-text"><div>{{ $funcionario->matricula }}</div></td>
                                         <!-- Task Delete Button -->
                                         <td>
                                             <form action="/funcionarios/delete/{{ $funcionario->id }}" method="POST">

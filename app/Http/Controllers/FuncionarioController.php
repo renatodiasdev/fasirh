@@ -9,7 +9,7 @@ use App\cargo;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use DB;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;;
 
 class FuncionarioController extends Controller
 {
@@ -55,6 +55,7 @@ class FuncionarioController extends Controller
    public function PostEditar(Request $request)
    {
      $this->validate($request, [
+       'matricula' => 'required|max:10',
        'nome' => 'required|max:50',
        'sexo' => 'required|max:10',
        'nascimento' => 'required|date',
@@ -98,6 +99,7 @@ class FuncionarioController extends Controller
     public function salvar(Request $request)
     {
       $this->validate($request, [
+        'matricula' => 'required|max:10',
         'nome' => 'required|max:50',
         'sexo' => 'required|max:10',
         'nascimento' => 'required|date',
@@ -129,6 +131,13 @@ class FuncionarioController extends Controller
     {
       Funcionario::findOrFail($id)->delete();
       return redirect('/funcionarios/buscar');
+    }
+
+    public function buscacargos($setor_id)
+    {
+      $criterio = ['empresa_id' => Auth::user()->empresa_id, 'setor_id' => $setor_id];
+      $cargos = cargo::where($criterio)->get();
+      return view('/cargosporsetor',compact('cargos'));
     }
 
 }

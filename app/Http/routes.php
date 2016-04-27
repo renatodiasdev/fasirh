@@ -99,6 +99,8 @@ Route::group(['middleware' => ['web']], function () {
         * Exclui um funcionário
         */
         Route::delete('/delete/{id}','FuncionarioController@delete');
+
+        Route::get('/cargosporsetor/{setor_id}','FuncionarioController@buscacargos');
       });
 
 
