@@ -66,6 +66,18 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">Confirme a Senha</label>
+
+                            <div class="col-md-6">
+                              <div class="checkbox">
+                                  <label>
+                                      <input type="checkbox" name="indisponivel"> Indisponível para o trabalho
+                                  </label>
+                              </div>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">

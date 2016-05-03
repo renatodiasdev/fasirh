@@ -33,6 +33,7 @@
                                                 </button>
 
                                                 <a class="btn btn-link" href="{{ URL::to('/funcionarios/editar/' . $funcionario->id) }}">Editar</a>
+                                                <a class="btn btn-link" href="{{ URL::to('/situacao/novasituacao/' . $funcionario->id) }}">Situação</a>
                                             </form>
                                         </td>
                                     </tr>

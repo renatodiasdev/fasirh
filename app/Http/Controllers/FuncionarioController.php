@@ -9,7 +9,7 @@ use App\cargo;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use DB;
-use Illuminate\Support\Facades\Auth;;
+use Illuminate\Support\Facades\Auth;
 
 class FuncionarioController extends Controller
 {
@@ -42,14 +42,7 @@ class FuncionarioController extends Controller
    public function editar($id)
    {
      $funcionario = Funcionario::findOrFail($id);
-     $empresa_id = Auth::user()->empresa_id;
-     $unidades = unidade::where('empresa_id',$empresa_id)->orderBy('nome')->pluck('nome','id');
-     $setores = setor::where('empresa_id',$empresa_id)->orderBy('nome')->pluck('nome','id');
-     $cargos  = cargo::where('empresa_id',$empresa_id)->orderBy('nome')->pluck('nome','id');
-     return view('/editar', compact('funcionario'))
-     ->with('unidades',$unidades)
-     ->with('setores',$setores)
-     ->with('cargos',$cargos);
+     return view('/editar', compact('funcionario'));
    }
 
    public function PostEditar(Request $request)
@@ -72,9 +65,6 @@ class FuncionarioController extends Controller
      $func->cpf = $request->cpf;
      $func->rg = $request->rg;
      $func->ctps = $request->ctps;
-     $func->unidade_id = $request->unidade_id;
-     $func->setor_id = $request->setor_id;
-     $func->cargo_id = $request->cargo_id;
      $func->admissao = $request->admissao;
      $func->saida = $request->saida;
      $func->empresa_id = Auth::user()->empresa_id;
@@ -85,14 +75,7 @@ class FuncionarioController extends Controller
 
     public function funcionario(Request $request)
     {
-      $empresa_id = Auth::user()->empresa_id;
-      $unidades = unidade::where('empresa_id',$empresa_id)->orderBy('nome')->pluck('nome','id');
-      $setores = setor::where('empresa_id',$empresa_id)->orderBy('nome')->pluck('nome','id');
-      $cargos  = cargo::where('empresa_id',$empresa_id)->orderBy('nome')->pluck('nome','id');
-      return view('/funcionario')
-      ->with('unidades',$unidades)
-      ->with('setores',$setores)
-      ->with('cargos',$cargos);
+      return view('/funcionario');
       $nome = $request->nome;
     }
 
@@ -117,9 +100,6 @@ class FuncionarioController extends Controller
       $funcionario->cpf = $request->cpf;
       $funcionario->rg = $request->rg;
       $funcionario->ctps = $request->ctps;
-      $funcionario->unidade_id = $request->unidade_id;
-      $funcionario->setor_id = $request->setor_id;
-      $funcionario->cargo_id = $request->cargo_id;
       $funcionario->admissao = $request->admissao;
       $funcionario->empresa_id = Auth::user()->empresa_id;
       $funcionario->save();

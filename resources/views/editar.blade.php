@@ -112,8 +112,7 @@
                             </div>
                         </div>
 
-                        @include('comboseditar')
-
+                        
                         <div class="form-group{{ $errors->has('admissao') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">Data de Admissão</label>
 

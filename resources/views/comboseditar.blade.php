@@ -13,7 +13,7 @@
     {!! Form::select('setor_id', $setores, $funcionario->setor_id, ['class' => 'form-control']) !!}
   </div>
 </div>
-
+<!--
 <div class="form-group{{ $errors->has('cargo_id') ? ' has-error' : '' }}">
   <label class="col-md-4 control-label">Cargos</label>
 
@@ -21,3 +21,4 @@
     {!! Form::select('cargo_id', $cargos, $funcionario->cargo_id, ['class' => 'form-control']) !!}
   </div>
 </div>
+-->

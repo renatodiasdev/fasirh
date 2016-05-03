@@ -32,12 +32,6 @@ Route::group(['middleware' => ['web']], function () {
      */
     Route::post('/task', 'HomeController@task');
 
-    Route::get('/sessao', function(){
-      $id = Auth::user()->empresa_id;
-
-      return $id;
-    });
-
     /**
      * Delete Task
      */
@@ -57,6 +51,10 @@ Route::group(['middleware' => ['web']], function () {
     */
     Route::get('/cargos', 'HomeController@cargos');
     /**
+    * Exibe os tipos de situação criados
+    */
+    Route::get('/tiposdesituacao', 'HomeController@tiposdesituacao');
+    /**
     * Cria uma unidade
     */
     Route::post('/unidade', 'HomeController@unidade');
@@ -66,6 +64,9 @@ Route::group(['middleware' => ['web']], function () {
     /* Cria um cargo
     */
     Route::post('/cargo', 'HomeController@cargo');
+    /* Cria um tipo de situação
+    */
+    Route::post('/tiposituacao', 'HomeController@tiposituacao');
     /**
     * Apaga uma unidade
     */
@@ -78,6 +79,10 @@ Route::group(['middleware' => ['web']], function () {
     * Apaga um cargo
     */
     Route::delete('/cargo/{id}', 'HomeController@cargodelete');
+    /**
+    * Apaga um tipo de situação
+    */
+    Route::delete('/tiposituacao/{id}', 'HomeController@tiposituacaodelete');
 
       Route::group(['prefix' => 'funcionarios'], function() {
         /**
@@ -103,7 +108,19 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/cargosporsetor/{setor_id}','FuncionarioController@buscacargos');
       });
 
+      Route::group(['prefix' => 'situacao'], function() {
+        Route::get('/situacoesporunidade','SituacaoFuncionalController@situacoesporunidade');
 
+        Route::post('/salvar','SituacaoFuncionalController@salvar');
+
+        Route::get('/novasituacao/{id}','SituacaoFuncionalController@novasituacao');
+
+        Route::post('/salvaedicao','SituacaoFuncionalController@salvaedicao');
+
+        Route::get('/editar/{id}','SituacaoFuncionalController@editar');
+
+        Route::delete('/apagar/{id}','SituacaoFuncionalController@apagar');
+      });
 
 
 });

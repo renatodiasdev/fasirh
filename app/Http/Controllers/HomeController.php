@@ -7,6 +7,7 @@ use App\unidade;
 use App\setor;
 use App\cargo;
 use App\User;
+use App\tiposituacao;
 use App\Http\Requests;
 use App\Http\Controllers\Validator;
 use Illuminate\Http\Request;
@@ -141,7 +142,6 @@ class HomeController extends Controller
 
       $cargo = new cargo;
       $cargo->nome = $request->nome;
-      $cargo->setor_id = $request->setor_id;
       $cargo->empresa_id = Auth::user()->empresa_id;
       $cargo->save();
 
@@ -153,5 +153,33 @@ class HomeController extends Controller
       cargo::findOrFail($id)->delete();
 
       return redirect('/cargos');
+    }
+
+    public function tiposdesituacao()
+    {
+      return view('tiposdesituacao', [
+          'tiposdesituacao' => tiposituacao::where('empresa_id', Auth::user()->empresa_id)->get()
+      ]);
+    }
+
+    public function tiposituacao(Request $request)
+    {
+      $this->validate($request, [
+        'descricao' => 'required|max:20',
+      ]);
+
+      $tiposituacao = new tiposituacao;
+      $tiposituacao->descricao = $request->descricao;
+      $tiposituacao->empresa_id = Auth::user()->empresa_id;
+      $tiposituacao->save();
+
+      return redirect('/tiposdesituacao');
+    }
+
+    public function tiposituacaodelete($id)
+    {
+      tiposituacao::findOrFail($id)->delete();
+
+      return redirect('/tiposdesituacao');
     }
 }
